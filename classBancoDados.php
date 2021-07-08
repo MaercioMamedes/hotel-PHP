@@ -33,7 +33,7 @@ class ClassBancoDados {
 
     public function AbrirConexao(){
 
-        $this->ConexaoBanco = new mysqli($this->IdServidor,"root","","hoteldb");
+        $this->ConexaoBanco = new mysqli($this->IdServidor,"root","","hotelbd");
 
         if(mysqli_connect_errno() != 0){
             $this->ConexaoBanco = NULL;
@@ -65,7 +65,7 @@ class ClassBancoDados {
 
     }
 
-    public function SetSELECT($Campos = "", $Tabela = "", $CamposOrdenacao = "", $Ordem){ // Váriável $Ordem não consta no projeto Original
+    public function SetSELECT($Campos = "", $Tabela = "", $CamposOrdenacao = "", $Ordem = ""){ // Váriável $Ordem não consta no projeto Original
         if (($Campos != "") && ($Tabela != "")) {
             $this->ComandoSQL = "SELECT" . $Campos . "FROM" .  $Tabela;
 

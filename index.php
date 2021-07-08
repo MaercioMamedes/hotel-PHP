@@ -4,7 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="_css/estilos.css">
-    <link rel="stylesheet" href="/_js/jquery-ui.min.css">
+    <link rel="stylesheet" href="/_css/jquery-ui.min.css">
     <script src="/_js/jquery-3.6.0.js"></script>
     <script src="/_js/jquery-ui.min.js"></script>
 
@@ -51,14 +51,45 @@
 
                     <div class="conteudo-corpo">
                         <div class="coluna-esquerda" id="conteudo">
-                            <p>Texto coluna esquerda</p>            
+                        <?php
+
+                            require_once("classBancoDados.php");
+                            $conexao_bd = new ClassBancoDados("localhost");
+                            if (!$conexao_bd->AbrirConexao()){ 
+                                echo "<p> Erro na conexão com o Banco de dados" . $conexao_bd->MensagemErro() . "</p>";
+                            }
+                            else{
+                                $conexao_bd->SetSELECT(" * "," hotel "," UF", " Cidade");
+
+                                if($conexao_bd->ExecSELECT()){
+                                    $NumeroRegistros = $conexao_bd->TotalRegistros();
+                                    $DataSet = $conexao_bd->GetDataSet();
+
+                                    if($NumeroRegistros > 0){
+                                        while($Registros = $DataSet->fetch_assoc()){
+                                            $EnderecoHotel ="<p>" . trim($Registros["Endereco"]) . trim($Registros["Numero"]) . "<br>";
+                                            $EnderecoHotel .= trim($Registros["Bairro"]) . "-" . trim($Registros["Cidade"]) . "<br>";
+                                            $EnderecoHotel .= $Registros["UF"] . " - Fone: " . $Registros["Telefone"] . "<br></p>";
+
+                                            echo $EnderecoHotel;
+                                        }
+                                    }
+                                }
+                                else {
+                                    echo "<p> Erro no comando SELECT </p>";
+                                }
+                            }
+
+                            $conexao_bd->FecharConexao();
+
+                        ?>           
                         </div>
                         <div class="coluna-direita">
                             <div class="calendario" id="calendario" align="center">
                             </div>
-                            <div class="separacao-linhas"></div> <!-- Incopreensível-->
+                            <div class="separacao-linhas"></div> <!-- Incompreensível-->
                             <div class="linha2-coluna-direita">
-                                <p>Segunda linha da coluna direita</p>
+                              <p></p>
                             </div>
                         </div>
                     </div>
