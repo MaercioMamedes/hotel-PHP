@@ -1,0 +1,6 @@
+02/07/2021 19:40
+    Inserido o calendário, construído com a biblioteca Jquery. 
+    Próximo passo quanto ao frontend, é estudar mais sobre a biblioteca utilizada e 
+    furamente implementar utilizando o React
+
+    Quanto ao backend, seguir estudando o capítulo 15
